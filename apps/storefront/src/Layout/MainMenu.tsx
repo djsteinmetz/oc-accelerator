@@ -90,17 +90,25 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
               );
             })}
           </MenuList>
+          <Button as={RouterLink} to={`/trade-in/products`} variant="ghost">
+            Trade-in
+          </Button>
         </Menu>
       );
     } else if (catalogs?.length === 1) {
       return (
-        <Button
-          as={RouterLink}
-          to={`/shop/${catalogs[0].ID}/products`}
-          variant="ghost"
-        >
-          Shop All Products
-        </Button>
+        <>
+          <Button
+            as={RouterLink}
+            to={`/shop/${catalogs[0].ID}/products`}
+            variant="ghost"
+          >
+            Shop All Products
+          </Button>
+          <Button as={RouterLink} to={`/trade-in/${catalogs[0].ID}/products`} variant="ghost">
+            Trade-in
+          </Button>
+        </>
       );
     }
     return null;
@@ -184,6 +192,47 @@ const MainMenu: FC<MainMenuProps> = ({ loginDisclosure }) => {
               aria-label={`Link to cart`}
             >
               Cart
+            </Button>
+            <Button
+              as={RouterLink}
+              to="/trade-in/cart"
+              variant="outline"
+              size="sm"
+              leftIcon={
+                totalQuantity !== 0 ? (
+                  <Box position="relative" mt="2px" mr="2px" lineHeight="1">
+                    <Box
+                      id="cartCountFrame"
+                      top="5px"
+                      left="6px"
+                      position="absolute"
+                      height="9px"
+                      width="15px"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <Text
+                        fontSize=".5rem"
+                        color="white"
+                        fontWeight="bold"
+                        letterSpacing="-.5px"
+                      >
+                        {totalQuantity}
+                      </Text>
+                    </Box>
+
+                    <Icon
+                      fontSize="lg"
+                      as={TbShoppingCartFilled}
+                      color="gray.500"
+                    />
+                  </Box>
+                ) : undefined
+              }
+              aria-label={`Link to trade-in cart`}
+            >
+              Trade-in Cart
             </Button>
             {isLoggedIn ? (
               <Button size="sm" onClick={logout}>
